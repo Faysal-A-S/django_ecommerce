@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--add font awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!--Bootstrap Social media icon-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/log.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login_register.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand " href="{% url 'store'  %}">E-Commerce</a>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <div class="col-md-8  mx-auto ">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+                <!--  MOVIES START-->
+              
+          </div>
+          <a href="{% url 'register' %}" class="btn btn-danger  my-2 my-sm-0">Register</a>
+         
+        </div>
+      </nav>
+
+  
+    <div class="offset-3 container login-container justify-content-cente">
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+                <h3>Login </h3>
+                <h3> {{lerror}}</h3>
+                <form action="{% url 'login' %}"  method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Username *" value="" name="signinuser" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Your Password *" value="" name="signinpass" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class=" btn btn-outline-danger" value="Login" />
+                    </div>
+                </form>
+                  
+                    
+                
+            </div>
+      
+   </div>
+
+
+
+    <script src='{% static "./assets/jquery/jquery-3.5.1.min.js" %}'></script>
+    <script src='{% static "./assets/jquery/popper.min.js" %}'></script>
+    <script src='{% static "./assets/bootstrap/js/bootstrap.min.js" %}'></script>
+</body>
+</html>

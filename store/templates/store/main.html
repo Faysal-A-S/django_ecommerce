@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Store</title>
+    <script>
+      var user = '{{request.user}}'
+      function getToken(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+       
+              function searchMathod() {
+                var val = document.getElementsByName('search')[0].value;
+                window.open('/searches/' + val);
+              }
+        
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #000000cc;">
+        <a class="navbar-brand" href="{% url 'store' %}">E-Commerce</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="electronics" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Electronics</a>
+              <div class="dropdown-menu" aria-labelledby="electronics">
+                <a class="dropdown-item" href="/search/1/">Computer Accessories</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/search/4/">EBooks & Accessories</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/search/5/">Office Electronics</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/search/6/">Gadgets</a>
+                
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="apparels" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Apparels
+              </a>
+              <div class="dropdown-menu" aria-labelledby="apparels">
+                <a class="dropdown-item" href="/search/2/">Men's Wear</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/search/3/">Women's Wear</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/search/7/">Kid's Wear</a>
+              </div>
+            </li> 
+          </ul>
+          <a href="{% url 'cart' %}" class="btn btn-primary  mr-3  ">
+             Cart<i class="fas fa-sm fa-shopping-cart"></i>
+            <span id="cart-total">{{cartItems}}</span>
+          </a>
+
+          
+          {% if user.is_authenticated %}
+            <a class="btn btn-outline-danger ml-2 my-2 my-sm-0" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="btn btn-outline-danger ml-2 my-2 my-sm-0" href="{% url 'login' %}">Login</a>
+          {% endif %}
+            
+         
+          <form class="form-inline my-2 my-lg-1 col-md-3 col-lg-3" action="." method="GET">
+            
+            <input class="form-control mr-sm-4 col-md-8 col-lg-8" type="search" placeholder="Search your product here..." aria-label="search" name="search">
+            <button class="btn btn-outline-danger ml-2 my-2 my-sm-0" type="submit"  onclick="searchMathod()">Search</button>
+          </form>
+        </div>
+      </nav>
+   <div class="container">
+       <br>
+       {% block content %}
+          
+       {% endblock content %}
+           
+   </div> 
+   
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>
